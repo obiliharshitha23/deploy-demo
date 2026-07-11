@@ -8,11 +8,75 @@
     <groupId>com.example</groupId>
     <artifactId>deploy-demo</artifactId>
     <version>1.0</version>
-
     <packaging>war</packaging>
 
+    <name>deploy-demo</name>
+    <description>Simple Maven Web Application</description>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- SonarQube -->
+        <sonar.projectKey>deploy-demo</sonar.projectKey>
+        <sonar.projectName>deploy-demo</sonar.projectName>
+        <sonar.host.url>http://YOUR-SONAR-SERVER:9000</sonar.host.url>
+    </properties>
+
+    <!-- Nexus Repository -->
+    <distributionManagement>
+
+        <repository>
+            <id>nexus-releases</id>
+            <name>Nexus Release Repository</name>
+            <url>http://YOUR-NEXUS-IP:8081/repository/maven-releases/</url>
+        </repository>
+
+        <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <name>Nexus Snapshot Repository</name>
+            <url>http://YOUR-NEXUS-IP:8081/repository/maven-snapshots/</url>
+        </snapshotRepository>
+
+    </distributionManagement>
+
     <build>
+
         <finalName>deploy-demo</finalName>
+
+        <plugins>
+
+            <!-- WAR Plugin -->
+            <plugin>
+
+                <groupId>org.apache.maven.plugins</groupId>
+
+                <artifactId>maven-war-plugin</artifactId>
+
+                <version>3.4.0</version>
+
+                <configuration>
+
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+
+                </configuration>
+
+            </plugin>
+
+            <!-- Sonar Plugin -->
+            <plugin>
+
+                <groupId>org.sonarsource.scanner.maven</groupId>
+
+                <artifactId>sonar-maven-plugin</artifactId>
+
+                <version>3.10.0.2594</version>
+
+            </plugin>
+
+        </plugins>
+
     </build>
 
 </project>
